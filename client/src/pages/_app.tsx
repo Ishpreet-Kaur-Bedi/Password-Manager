@@ -1,4 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
+
+// this will do https request form the server
+
 import { QueryClient, QueryClientProvider } from "react-query";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
