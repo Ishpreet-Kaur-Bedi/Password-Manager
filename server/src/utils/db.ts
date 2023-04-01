@@ -5,7 +5,9 @@ import logger from "./logger";
 export async function connectToDb() {
   try {
     await mongoose.connect(DB_CONNECTION_STRING);
-  } catch (e) {
+  } 
+  
+  catch (e) {
     logger.error(e, "error connecting to database");
     process.exit(1);
   }

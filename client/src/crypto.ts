@@ -5,6 +5,7 @@ export function hashPassword(password: string) {
   return SHA256(password).toString();
 }
 
+// we need to create a vault key
 export function generateVaultKey({
   email,
   hashedPassword,

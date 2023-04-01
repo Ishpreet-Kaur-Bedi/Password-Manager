@@ -16,14 +16,18 @@ declare module "fastify" {
   }
 }
 
+
+// this is the funtion to create the server
 function createServer() {
   const app = fastify();
 
+  // now we will add some pluggins
   app.register(cors, {
     origin: CORS_ORIGIN,
     credentials: true,
   });
 
+  // read file sync takes only one argument and that is the path to that file
   app.register(jwt, {
     secret: {
       private: fs.readFileSync(
@@ -33,19 +37,25 @@ function createServer() {
         `${(path.join(process.cwd()), "certs")}/public.key`
       ),
     },
+
+
     sign: { algorithm: "RS256" },
     cookie: {
       cookieName: "token",
       signed: false,
     },
   });
-
+// this is so that we can sign cookies
   app.register(cookie, {
     parseOptions: {},
   });
 
+
+  // authentication decorator
+
   app.decorate(
     "authenticate",
+    
     async (request: FastifyRequest, reply: FastifyReply) => {
       try {
         const user = await request.jwtVerify<{

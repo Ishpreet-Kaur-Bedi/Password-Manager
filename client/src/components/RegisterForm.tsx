@@ -40,11 +40,13 @@ function RegisterForm({
         email,
         salt,
       });
+//we will store our vault key in session storage
+
 
       window.sessionStorage.setItem("vk", vaultKey);
 
       setVaultKey(vaultKey);
-
+//this property will take the empty string when we first registre
       window.sessionStorage.setItem("vault", "");
 
       setStep("vault");

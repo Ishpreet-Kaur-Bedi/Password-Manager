@@ -7,6 +7,8 @@ function gracefulShutdown(signal: string, app: FastifyInstance) {
   process.on(signal, async () => {
     logger.info(`Goodbye, got signal ${signal}`);
 
+
+    // this will close the fastify instance
     app.close();
 
     await disconnectFromDB();
@@ -21,12 +23,15 @@ async function main() {
   const app = createServer();
 
   try {
-    const url = await app.listen(4000, "0.0.0.0");
+    const url = await app.listen({port:4000});
 
     logger.info(`Server is ready at ${url}`);
 
     await connectToDb();
-  } catch (e) {
+  } 
+  // when we start the server we need to catch the error
+
+  catch (e) {
     logger.error(e);
     process.exit(1);
   }

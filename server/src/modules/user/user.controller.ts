@@ -22,7 +22,7 @@ export async function registerUserHandler(
 
     const salt = generateSalt();
 
-    const vault = await createVault({ user: user._id, salt });
+    const vault = await createVault({ user: user._id , salt :salt });
 
     const accessToken = await reply.jwtSign({
       _id: user._id,
@@ -68,7 +68,7 @@ export async function loginHandler(
   reply.setCookie("token", accessToken, {
     domain: COOKIE_DOMAIN,
     path: "/",
-    secure: false,
+    secure: false,  //thi means that cookie can only be sent to https
     httpOnly: true,
     sameSite: false,
   });

@@ -4,6 +4,7 @@ import crypto from "crypto";
 export function generateSalt() {
   return crypto.randomBytes(64).toString("hex");
 }
+// this will return a hexadecimal string whichis 64 bits long
 
 import { UserModel } from "./user.model";
 
@@ -29,6 +30,7 @@ export async function findUserByEmailAndPassword({
   email: string;
   hashedPassword: string;
 }) {
+  
   const user = await UserModel.findOne({ email });
 
   const hash = await genHash(hashedPassword);
